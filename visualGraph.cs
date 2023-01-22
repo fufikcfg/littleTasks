@@ -1,43 +1,52 @@
-﻿
-
-Console.Write("Кол - во значений:\t");
-int elementList = Convert.ToInt32(Console.ReadLine());
-List<int> listNumbers = new List<int>(elementList);
-
-for (int i = 0; i < elementList; i++)
+﻿public static class visualGraph
 {
-    Console.Write($"Значение {i + 1}:\t");
-    listNumbers.Add(Convert.ToInt32(Console.ReadLine()));
-}
-void sortingOutput(List<int> listNumbers)
-{
-    for (int i = 0; i < listNumbers.Count; i++)
+    static private List<int> listNumbers = new List<int>();
+    public static void rendering(List<int> listNumbers)
     {
-        for (int j = 1; j <= listNumbers[i]; j++)
+        for (int i = 0; i < listNumbers.Count; i++)
         {
-            Console.Write("#");
+            for (int j = 1; j <= listNumbers[i]; j++)
+            {
+                Console.Write("#");
+            }
+            Console.Write(" - " + listNumbers[i]);
+            Console.WriteLine();
         }
-        Console.WriteLine();
+    }
+    public static void renderingOutput(List<int> listNumbers)
+    {
+        Console.Write("1 = Уменьшение\n2 = Возрастание\n3 = Не менять\nВариант: ");
+        switch (Console.ReadLine())
+        {
+            case "1":
+                listNumbers.Sort();
+                listNumbers.Reverse();
+                rendering(listNumbers);
+                break;
+            case "2":
+                listNumbers.Sort();
+                rendering(listNumbers);
+                break;
+            case "3":
+                rendering(listNumbers);
+                break;
+            default:
+                break;
+        }
     }
 }
-
-Console.Write("1 = Уменьшение\n2 = Возрастание\n3 = Не менять\nВариант: ");
-
-
-switch (Console.ReadLine())
+class Program
 {
-    case "1":
-        listNumbers.Sort();
-        listNumbers.Reverse();
-        sortingOutput(listNumbers);
-        break;
-    case "2":
-        listNumbers.Sort();
-        sortingOutput(listNumbers);
-        break;
-    case "3":
-        sortingOutput(listNumbers);
-        break;
-    default:
-        break;
+    static void Main(string[] args)
+    {
+        Console.Write("Кол - во значений:\t");
+        int elementList = Convert.ToInt32(Console.ReadLine());
+        List<int> listNumbers = new List<int>(elementList);
+        for (int i = 0; i < elementList; i++)
+        {
+            Console.Write($"Значение {i + 1}:\t");
+            listNumbers.Add(Convert.ToInt32(Console.ReadLine()));
+        }
+        visualGraph.renderingOutput(listNumbers);
+    }
 }
